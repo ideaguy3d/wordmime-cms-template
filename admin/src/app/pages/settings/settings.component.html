@@ -1,0 +1,156 @@
+<div class="page-container" *ngIf="form">
+    <form [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{'siteName' | translate}}</mat-label>
+            <input matInput formControlName="siteName" color="primary">
+            <mat-hint align="start">
+                <strong>{{'siteName_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('siteName').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'siteTitle' | translate}}</mat-label>
+            <input matInput formControlName="siteTitle" color="primary">
+            <mat-hint align="start">
+                <strong>{{'siteTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('siteTitle').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'siteDescription' | translate}}</mat-label>
+            <textarea matInput formControlName="siteDescription" color="primary"></textarea>
+            <mat-hint align="start">
+                <strong>{{'siteDescription_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('siteDescription').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'domainName' | translate}}</mat-label>
+            <input matInput formControlName="domainName" color="primary">
+            <mat-hint align="start">
+                <strong>{{'domainName_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('domainName').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'storageName' | translate}}</mat-label>
+            <input matInput formControlName="storageName" color="primary">
+            <mat-hint align="start">
+                <strong>{{'storageName_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('storageName').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'externalLinkUrl' | translate }}</mat-label>
+            <input matInput formControlName="defaultExternalUrl">
+            <mat-hint align="start">
+                <strong>{{'externalLinkUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('defaultExternalUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'externalLinkTitle' | translate }}</mat-label>
+            <input matInput formControlName="defaultExternalTitle">
+            <mat-hint align="start">
+                <strong>{{'externalLinkTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('defaultExternalTitle').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'gtagId' | translate}}</mat-label>
+            <input matInput formControlName="gtagId" color="primary">
+            <mat-hint align="start">
+                <strong>{{'gtagId_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('gtagId').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'adsenseId' | translate}}</mat-label>
+            <input matInput formControlName="adsenseId" color="primary">
+            <mat-hint align="start">
+                <strong>{{'adsenseId_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('adsenseId').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'startYear' | translate}}</mat-label>
+            <input matInput formControlName="startYear" color="primary">
+            <mat-hint align="start">
+                <strong>{{'startYear_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('startYear').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{'language' | translate}}</mat-label>
+            <mat-select formControlName="language">
+                <mat-option value="fi">FI</mat-option>
+                <mat-option value="en">EN</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'emailUrl' | translate}}</mat-label>
+            <input matInput formControlName="emailUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'emailUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('emailUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'adminEmail' | translate}}</mat-label>
+            <input matInput formControlName="adminEmail" color="primary">
+            <mat-hint align="start">
+                <strong>{{'adminEmail_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('adminEmail').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'adminEmailPassword' | translate}}</mat-label>
+            <input matInput formControlName="adminEmailPassword" color="primary">
+            <mat-hint align="start">
+                <strong>{{'adminEmailPassword_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('adminEmailPassword').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'twitterUrl' | translate}}</mat-label>
+            <input matInput formControlName="twitterUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'twitterUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('twitterUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'facebookUrl' | translate}}</mat-label>
+            <input matInput formControlName="facebookUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'facebookUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('facebookUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'instagramUrl' | translate}}</mat-label>
+            <input matInput formControlName="instagramUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'instagramUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('instagramUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'pinterestUrl' | translate}}</mat-label>
+            <input matInput formControlName="pinterestUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'pinterestUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('pinterestUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'youtubeUrl' | translate}}</mat-label>
+            <input matInput formControlName="youtubeUrl" color="primary">
+            <mat-hint align="start">
+                <strong>{{'youtubeUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('youtubeUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <button [disabled]="form.invalid" mat-raised-button color="primary" type="button" (click)="submit()">{{ 'submit' | translate }}</button>
+    </form>
+</div>

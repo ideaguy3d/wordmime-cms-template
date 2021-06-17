@@ -1,0 +1,37 @@
+<div class="page-container">
+    <mat-button-toggle-group>
+        <mat-button-toggle routerLink="/articles/add"><mat-icon>add</mat-icon>{{ 'add_article' | translate }}</mat-button-toggle>
+        <mat-button-toggle routerLink="/articles/categories"><mat-icon>add</mat-icon>{{ 'add_categories' | translate }}</mat-button-toggle>
+        <mat-button-toggle routerLink="/sponsor/add" *ngIf="(userService.user | async)?.role == 10"><mat-icon>add</mat-icon>{{ 'addSponsor' | translate }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    <div *ngIf="articlesService.allArticles | async">
+        <table mat-table [dataSource]="articlesService.allArticles | async" class="table mat-elevation-z8">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articleTitle' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="authorName">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articleAuthorName' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{(element.authorUID | user_pipe)?.displayName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="published">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articlePublished' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.published | time_pipe | async}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edited">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articleEdited' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.edited | time_pipe | async}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articleEdit' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> <button mat-button [routerLink]="'/articles/edit/' + element.slug"><mat-icon>edit</mat-icon>{{ 'edit_article' | translate }}</button> </td>
+            </ng-container>
+            <ng-container matColumnDef="open">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_articleOpen' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> <a mat-button target="_blank" [href]="('articleSlug' | translate) + element.slug"><mat-icon>open_in_new</mat-icon>{{ 'table_col_articleOpen' | translate }}</a> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.hidden]="(userService.user | async)?.uid !== row.authorUID && (userService.user | async)?.role < 7"></tr>
+        </table>
+    </div>
+</div>

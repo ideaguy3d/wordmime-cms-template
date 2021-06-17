@@ -1,0 +1,27 @@
+<div class="page-container">
+    <form [formGroup]="form">
+        <input type="file" (change)="addFile($event)" accept=".png,.jpg" />
+        <br>
+        <div class="info_text">
+            <mat-icon>info</mat-icon>
+            <p [innerHTML]="'media_text' | translate"></p>
+        </div>
+        <mat-form-field style="margin-top: 30px">
+            <mat-label>{{'fileTitle' | translate}}</mat-label>
+            <input matInput formControlName="title" color="primary">
+            <mat-hint align="start">
+                <strong>{{'fileTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('title').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field style="margin-top: 30px">
+            <mat-label>{{'fileCaption' | translate}}</mat-label>
+            <input matInput formControlName="caption" color="primary">
+            <mat-hint align="start">
+                <strong>{{'fileCaption_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('caption').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <button type="button" [disabled]="form.invalid || form.disabled" color="primary" mat-raised-button (click)="submit()" >{{ 'submit' | translate }}</button>
+    </form>
+</div>

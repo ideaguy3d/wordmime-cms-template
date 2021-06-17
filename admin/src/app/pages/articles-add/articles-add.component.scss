@@ -1,0 +1,23 @@
+form {
+    width: 700px;
+    max-width: 100%;
+    img, button, mat-form-field {
+        width: 100%;
+    }
+    mat-form-field {
+        margin-top: 30px;
+    }
+    .content-item {
+        background-color: whitesmoke;
+        padding: 0 15px 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+    .submit-button {
+        margin-top: 30px;
+    }
+    textarea {
+        height: 200px;
+    }
+}

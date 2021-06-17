@@ -1,0 +1,19 @@
+<div class="page-container">
+    <form [formGroup]="form">
+        <mat-form-field appearance="fill" *ngIf="roles">
+            <mat-label>{{'addUser_role' | translate}}</mat-label>
+            <mat-select formControlName="addUser_email">
+                <mat-option *ngFor="let role of roles" [value]="role.level">{{role.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'addUser_email' | translate}}</mat-label>
+            <input matInput formControlName="addUser_email" color="primary">
+            <mat-hint align="start">
+                <strong>{{'addUser_email_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('addUser_email').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="button" (click)="submit()">{{ 'submit' | translate }}</button>
+    </form>
+</div>

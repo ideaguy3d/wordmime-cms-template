@@ -1,0 +1,41 @@
+<div class="page-container">
+    <mat-button-toggle-group>
+        <mat-button-toggle routerLink="/media/add"><mat-icon>add</mat-icon>{{ 'add_media' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="media-list" *ngIf="mediaService.allMedia | async">
+        <table mat-table [dataSource]="mediaService.allMedia | async" class="table mat-elevation-z8">
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaImage' | translate }} </th>
+                <td mat-cell *matCellDef="let element">
+                    <img *ngIf="element.type == 'image'" [src]="element.downloadURL | media_pipe | async" class="media-image">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaTitle' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="caption">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaCaption' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.caption}} </td>
+            </ng-container>
+            <ng-container matColumnDef="downloadURL">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaDownloadURL' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.downloadURL}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ref">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaRef' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.ref}} </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaType' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+            </ng-container>
+            <ng-container matColumnDef="open">
+                <th mat-header-cell *matHeaderCellDef> {{ 'table_col_mediaOpen' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> <button mat-button [routerLink]="'/media/edit/' + element.ref"><mat-icon>edit</mat-icon>{{ 'edit_media' | translate }}</button> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

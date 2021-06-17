@@ -1,0 +1,45 @@
+<h2 mat-dialog-title></h2>
+<mat-dialog-content>
+    <h2>{{'createLink' | translate}}</h2>
+    <div *ngIf="form">
+        <form [formGroup]="form">
+            <mat-form-field>
+                <mat-label>{{'linkTitle' | translate}}</mat-label>
+                <input matInput formControlName="title" color="primary">
+                <mat-hint align="start">
+                    <strong>{{'linkTitle_hint' | translate}}</strong>
+                </mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{'linkText' | translate}}</mat-label>
+                <input matInput formControlName="text" color="primary">
+                <mat-hint align="start">
+                    <strong>{{'linkText_hint' | translate}}</strong>
+                </mat-hint>
+            </mat-form-field>
+            <mat-radio-group (change)="changeInternal($event.value)" #radio>
+                <mat-radio-button value="true" style="margin-right: 15px">{{'ownLink' | translate}}</mat-radio-button>
+                <mat-radio-button value="false">{{'selectLink' | translate}}</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field *ngIf="isInternal == 'true'">
+                <mat-label>{{'link' | translate}}</mat-label>
+                <input matInput formControlName="link" color="primary">
+                <mat-hint align="start">
+                    <strong>{{'link_hint' | translate}}</strong>
+                </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" *ngIf="isInternal == 'false'">
+                <mat-label>{{'link_external' | translate}}</mat-label>
+                <mat-select formControlName="link">
+                    <mat-option *ngFor="let advertiser of advertiserService.allAdvertisers | async" [value]="'/redirect/' + advertiser.docId">{{advertiser.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <b>{{linkCode | async}}</b>
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="''">{{ 'close' | translate }}</button>
+</mat-dialog-actions>

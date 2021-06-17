@@ -1,0 +1,111 @@
+<div class="page-container" *ngIf="initialized">
+    <form [formGroup]="form">
+        <img *ngIf="form.get('articleImage').value" [src]="form.get('articleImage').value | media_pipe | async">
+        <button mat-button (click)="selectOGImage()"><mat-icon>add</mat-icon>{{ 'article_articleImage' | translate }}</button>
+        <mat-form-field>
+            <mat-label>{{ 'article_title' | translate }}</mat-label>
+            <input matInput formControlName="title">
+            <mat-hint align="start">
+                <strong>{{'article_title_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('title').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'article_slug' | translate }}</mat-label>
+            <input matInput formControlName="slug">
+            <mat-hint align="start">
+                <strong>{{'article_slug_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('slug').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'article_description' | translate}}</mat-label>
+            <textarea matInput formControlName="description" placeholder="Artikkelin kuvausteksti"></textarea>
+            <mat-hint align="start">
+                <strong>{{'article_description_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('description').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{'article_categories' | translate}}</mat-label>
+            <mat-select formControlName="categories" multiple>
+                <mat-option *ngFor="let category of (_settingsService.meta | async)?.categories?.articleCategories" [value]="category">{{category}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{'article_sponsor' | translate}}</mat-label>
+            <mat-select formControlName="sponsorDocId">
+                <mat-option *ngFor="let sponsor of (_sponsorService.allSponsors | async)" [value]="sponsor.docId">{{sponsor.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{'article_related' | translate}}</mat-label>
+            <mat-select formControlName="relatedArticles" multiple>
+                <mat-option *ngFor="let relatedArticle of (_articlesService.allArticles | async)" [value]="relatedArticle.slug" [disabled]="form.get('relatedArticles').value?.length > 1 && !form.get('relatedArticles').value?.includes(relatedArticle.slug)">{{relatedArticle.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'externalLinkUrl' | translate }}</mat-label>
+            <input matInput formControlName="externalLinkUrl">
+            <mat-hint align="start">
+                <strong>{{'externalLinkUrl_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('externalLinkUrl').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'externalLinkTitle' | translate }}</mat-label>
+            <input matInput formControlName="externalLinkTitle">
+            <mat-hint align="start">
+                <strong>{{'externalLinkTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('externalLinkTitle').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <div formArrayName="content">
+            <div *ngFor="let item of form.get('content').value; let i = index; trackBy:trackByFn" [formGroup]="form.get('content').get(i.toString())" class="content-item">
+                <mat-form-field *ngIf="item.type == 'heading'">
+                    <mat-label>{{'article_heading' | translate}}</mat-label>
+                    <input matInput formControlName="contents">
+                    <mat-hint align="start">
+                        <strong>{{'article_heading_hint' | translate}}</strong>
+                    </mat-hint>
+                    <mat-error *ngIf="form.get('content').get(i.toString()).get('contents').hasError('required')">{{'required_error' | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="item.type == 'text'">
+                    <mat-label>{{'article_text' | translate}}</mat-label>
+                    <textarea matInput formControlName="contents" placeholder="Artikkelin tekstiä"></textarea>
+                    <mat-hint align="start">
+                        <strong>{{'article_text_hint' | translate}}</strong>
+                    </mat-hint>
+                    <mat-error *ngIf="form.get('content').get(i.toString()).get('contents').hasError('required')">{{'required_error' | translate}}</mat-error>
+                </mat-form-field>
+                <div *ngIf="item.type == 'image'">
+                    <img *ngIf="form.controls.content.controls[i].controls.contents.value" [src]="form.controls.content.controls[i].controls.contents.value | media_pipe | async">
+                    <button mat-button (click)="selectContentImage(i)" style="margin-top: 15px;"><mat-icon>add</mat-icon>{{'article_image' | translate}}</button>
+                    <mat-form-field class="input">
+                        <mat-label>{{'article_image_description' | translate}}</mat-label>
+                        <input matInput formControlName="description">
+                        <mat-hint align="start">
+                            <strong>{{'article_image_description_hint' | translate}}</strong>
+                        </mat-hint>
+                        <mat-error *ngIf="form.get('content').get(i.toString()).get('description').hasError('required')">{{'required_error' | translate}}</mat-error>
+                        <mat-error *ngIf="form.get('content').get(i.toString()).get('contents').hasError('required')">{{'required_error' | translate}} (IMG)</mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-button-toggle-group>
+                    <mat-button-toggle (click)="removeContent(i)" color="warn"><mat-icon>delete</mat-icon>{{'article_remove' | translate}}</mat-button-toggle>
+                    <mat-button-toggle (click)="moveUp(i)" *ngIf="i > 0"><mat-icon>north</mat-icon>{{'article_moveup' | translate}}</mat-button-toggle>
+                    <mat-button-toggle (click)="moveDown(i)" *ngIf="i < form.get('content').value.length - 1"><mat-icon>south</mat-icon>{{'article_movedown' | translate}}</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div>
+                <mat-button-toggle-group>
+                    <mat-button-toggle (click)="addContent('heading')"><mat-icon>add</mat-icon>{{'article_add_heading' | translate}}</mat-button-toggle>
+                    <mat-button-toggle (click)="addContent('text')"><mat-icon>add</mat-icon>{{'article_add_text' | translate}}</mat-button-toggle>
+                    <mat-button-toggle (click)="addContent('image')"><mat-icon>add</mat-icon>{{'article_add_image' | translate}}</mat-button-toggle>
+                    <mat-button-toggle (click)="linkBuild()"><mat-icon>add</mat-icon>{{'article_add_link' | translate}}</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
+        <button type="button" class="submit-button" [disabled]="form.invalid" color="primary" mat-raised-button (click)="submit()">{{ 'submit' | translate }}</button>
+    </form>
+</div>

@@ -1,0 +1,6 @@
+<header>
+    <mat-icon (click)="toggleNav()" style="cursor:pointer">menu</mat-icon>
+    <div>
+        <button mat-button (click)="userService.signOut()"><mat-icon>exit_to_app</mat-icon>{{ 'sign_out' | translate }}</button>
+    </div>
+</header>

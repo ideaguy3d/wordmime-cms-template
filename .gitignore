@@ -1,0 +1,7 @@
+node_modules
+dist
+config/firebaseConfig.ts
+config/serviceAccount.ts
+.DS_Store
+/backend/web/public/styles/style.min.css
+package-lock.json

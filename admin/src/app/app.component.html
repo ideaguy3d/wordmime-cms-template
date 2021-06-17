@@ -1,0 +1,7 @@
+<div class="main-container">
+    <header-component *ngIf="(userService.user | async)" (navEmitter)="toggleNav($event)"></header-component>
+    <div class="outlet-container" [ngClass]="{'unauthorized' : !(userService.user | async) , 'nav-open' : navOpen}">
+        <sidenav-component *ngIf="(userService.user | async) && navOpen"></sidenav-component>
+        <router-outlet></router-outlet>
+    </div>
+</div>

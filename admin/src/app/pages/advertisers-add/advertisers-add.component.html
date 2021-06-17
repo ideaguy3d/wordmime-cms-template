@@ -1,0 +1,31 @@
+<div class="page-container">
+    <form [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{'advertiserTitle' | translate}}</mat-label>
+            <input matInput formControlName="title" color="primary">
+            <mat-hint align="start">
+                <strong>{{'advertiserTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('title').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'advertiserLink' | translate}}</mat-label>
+            <input matInput formControlName="link" color="primary">
+            <mat-hint align="start">
+                <strong>{{'advertiserLink_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('link').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'advertiserName' | translate}}</mat-label>
+            <input matInput formControlName="advertiserName" color="primary">
+            <mat-hint align="start">
+                <strong>{{'advertiserName_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('advertiserName').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-checkbox formControlName="redirect">Use redirect</mat-checkbox>
+        <br>
+        <button type="button" [disabled]="form.invalid" color="primary" mat-raised-button (click)="submit()" >{{ 'submit' | translate }}</button>
+    </form>
+</div>

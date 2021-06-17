@@ -1,0 +1,8 @@
+.main-container {
+
+}
+
+.outlet-container:not(.unauthorized) {
+    display: flex;
+    padding-top: 50px;
+}

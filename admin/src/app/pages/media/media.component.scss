@@ -1,0 +1,12 @@
+.media-image {
+    height: 50px;
+    width: auto;
+}
+
+td {
+    max-width: 100px;
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 10px;
+}

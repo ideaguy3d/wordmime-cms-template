@@ -1,0 +1,11 @@
+<div class="page-container">
+    <div *ngFor="let category of (settingsService.meta | async)?.categories?.articleCategories" class="category">{{category}} <button mat-button color="warn" (click)="removeCategory(category)">{{ 'remove_category' | translate }}</button></div>
+    <mat-form-field>
+        <mat-label>{{'add_category' | translate}}</mat-label>
+        <input #category matInput color="primary">
+        <mat-hint align="start">
+            <strong>{{'add_category_hint' | translate}}</strong>
+        </mat-hint>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addCategory(category.value)">{{ 'submit' | translate }}</button>
+</div>

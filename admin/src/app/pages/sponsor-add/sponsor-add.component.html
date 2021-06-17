@@ -1,0 +1,23 @@
+<div class="page-container">
+    <form [formGroup]="form">
+        <mat-form-field>
+            <mat-label>{{'sponsorTitle' | translate}}</mat-label>
+            <input matInput formControlName="title" color="primary">
+            <mat-hint align="start">
+                <strong>{{'sponsorTitle_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('title').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <img *ngIf="form.get('imageSrc').value" [src]="form.get('imageSrc').value">
+        <button mat-button (click)="selectSponsorImage()"><mat-icon>add</mat-icon>{{ 'sponsorImage' | translate }}</button>
+        <mat-form-field>
+            <mat-label>{{'sponsorHtml' | translate}}</mat-label>
+            <textarea matInput formControlName="html" placeholder="HTML"></textarea>
+            <mat-hint align="start">
+                <strong>{{'sponsor_html_hint' | translate}}</strong>
+            </mat-hint>
+            <mat-error *ngIf="form.get('html').hasError('required')">{{'required_error' | translate}}</mat-error>
+        </mat-form-field>
+        <button type="button" [disabled]="form.invalid" color="primary" mat-raised-button (click)="submit()" >{{ 'submit' | translate }}</button>
+    </form>
+</div>
